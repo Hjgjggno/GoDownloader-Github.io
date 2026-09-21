@@ -241,8 +241,8 @@ function startQuiz(){
 }
 function render(){
  const x=pool[current];if(!x)return;
- box.innerHTML='<div class="question-number">CLASS '+x.grade+' · '+x.subject.toUpperCase()+' · '+x.difficulty.toUpperCase()+' · QUESTION '+(current+1)+' OF '+pool.length+'</div><div class="question">'+x.q+'</div>'+x.o.map((v,i)=>'<button class="option '+(answers[current]===i?"selected":"") +'" onclick="choose('+i+')">'+String.fromCharCode(65+i)+'. '+v+'</button>').join("")+'<p class="answer-note">Answer selected. Click Next to continue. Correctness is revealed only after Finish.</p>';
- bar.style.width=((current+1)/pool.length*100)+"%";$("meta").textContent="Class "+x.grade+" · "+x.subject;$("scoreLive").textContent=answers.filter(a=>a!==null).length+" answered";$("prev").style.visibility=current?"visible":"hidden";$("next").textContent=current===pool.length-1?"Finish":"Next →";$("timer").textContent=String(Math.floor(seconds/60)).padStart(2,"0")+":"+String(seconds%60).padStart(2,"0");
+ box.innerHTML='<div class="question-number">CLASS '+x.grade+' · '+x.subject.toUpperCase()+' · '+x.difficulty.toUpperCase()+' · QUESTION '+(current+1)+' OF '+pool.length+'</div><div class="question">'+x.q+'</div>'+x.o.map((v,i)=>'<button class="option '+(answers[current]===i?"selected":"") +'" onclick="choose('+i+')">'+String.fromCharCode(65+i)+'. '+v+'</button>').join("")+'';
+ bar.style.width=((current+1)/pool.length*100)+"%";$("meta").textContent="Class "+x.grade+" · "+x.subject;$("scoreLive").textContent="";$("prev").style.visibility=current?"visible":"hidden";$("next").textContent=current===pool.length-1?"Finish":"Next →";$("timer").textContent=String(Math.floor(seconds/60)).padStart(2,"0")+":"+String(seconds%60).padStart(2,"0");
 }
 function choose(i){answers[current]=i;render()}
 $("prev").onclick=()=>{if(current){current--;render()}}
