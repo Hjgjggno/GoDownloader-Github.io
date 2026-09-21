@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UPSC Knowledge Hub | Civil Services Quiz</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <nav><div class="brand">UPSC<span>Hub</span></div><a href="#quiz">Start Quiz</a></nav>
+  <div class="hero-content">
+    <p class="eyebrow">CIVIL SERVICES PREPARATION</p>
+    <h1>Learn. Think. <span>Master.</span></h1>
+    <p>UPSC-oriented knowledge, analytical MCQs and exam-style practice in one clean study hub.</p>
+    <a class="primary" href="#quiz">Take Today's Quiz →</a>
+  </div>
+</header>
+<main>
+<section class="stats">
+  <div><b>10</b><span>Questions</span></div><div><b>20</b><span>Minutes</span></div><div><b>UPSC</b><span>Level</span></div><div><b>GS</b><span>Focus</span></div>
+</section>
+<section class="topics">
+<h2>Core Knowledge Areas</h2>
+<div class="cards"><article><b>🏛️ Polity</b><p>Constitution, Parliament, Judiciary & governance.</p></article><article><b>🌏 Geography</b><p>Physical, Indian & world geography concepts.</p></article><article><b>📜 History</b><p>Ancient, medieval and modern India.</p></article><article><b>💹 Economy</b><p>Macroeconomics, banking and public finance.</p></article></div>
+</section>
+<section id="quiz" class="quiz-section">
+<div class="quiz-head"><div><p class="eyebrow">DAILY PRACTICE</p><h2>UPSC General Studies Quiz</h2></div><div class="timer" id="timer">20:00</div></div>
+<div class="progress"><div id="progressBar"></div></div>
+<div id="quizBox"></div>
+<div class="quiz-actions"><button id="prev" class="secondary">← Previous</button><button id="next" class="primary">Next →</button></div>
+</section>
+<section id="result" class="result hidden"><p class="eyebrow">RESULT</p><h2 id="scoreText"></h2><p id="resultMessage"></p><button class="primary" onclick="restartQuiz()">Try Again</button></section>
+</main>
+<footer>UPSC Knowledge Hub · Practice for learning and revision</footer>
+<script src="script.js"></script>
+</body></html>
