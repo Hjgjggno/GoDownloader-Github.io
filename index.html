@@ -1,37 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>UPSC Knowledge Hub | Civil Services Quiz</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IQ Buster | Class-wise Knowledge Challenge</title><link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="hero">
-  <nav><div class="brand">UPSC<span>Hub</span></div><div class="navlinks"><a href="#quiz">Quiz</a><a href="#leaderboard">Leaderboard</a></div></nav>
-  <div class="hero-content">
-    <p class="eyebrow">CIVIL SERVICES PREPARATION</p>
-    <h1>Learn. Think. <span>Master.</span></h1>
-    <p>UPSC-oriented knowledge, analytical MCQs and exam-style practice in one clean study hub.</p>
-    <a class="primary" href="#quiz">Take Today's Quiz →</a>
-  </div>
-</header>
+<nav><div class="brand">IQ <span>Buster</span></div><div class="navlinks"><a href="#quiz">Quiz</a><a href="#profile">My Profile</a></div></nav>
+<div class="hero-content">
+<p class="eyebrow">CLASS-WISE KNOWLEDGE CHALLENGE · CLASSES 1–12</p>
+<h1>Think. Learn. <span>Grow.</span></h1>
+<p>A friendly quiz that adapts to your school class, tracks your answers, and gives you a clear learning profile—without putting you down.</p>
+<a class="primary" href="#quiz">Start Challenge →</a>
+</div></header>
 <main>
-<section class="stats">
-  <div><b>105+</b><span>Questions</span></div><div><b>3</b><span>Difficulty levels</span></div><div><b>UPSC</b><span>Level</span></div><div><b>GS</b><span>Focus</span></div>
-</section>
-<section class="topics">
-<h2>Core Knowledge Areas</h2>
-<div class="cards"><article><b>🏛️ Polity</b><p>Constitution, Parliament, Judiciary & governance.</p></article><article><b>🌏 Geography</b><p>Physical, Indian & world geography concepts.</p></article><article><b>📜 History</b><p>Ancient, medieval and modern India.</p></article><article><b>💹 Economy</b><p>Macroeconomics, banking and public finance.</p></article></div>
-</section>
+<section class="stats"><div><b>1–12</b><span>Class levels</span></div><div><b>12</b><span>Subjects</span></div><div><b>144+</b><span>Questions</span></div><div><b>Smart</b><span>Progress profile</span></div></section>
+<section class="topics"><h2>What you can practise</h2><div class="cards">
+<article><b>🔢 Mathematics</b><p>Number sense, arithmetic, algebra, geometry and reasoning.</p></article>
+<article><b>🔬 Science</b><p>Concepts from everyday science to physics, chemistry and biology.</p></article>
+<article><b>🌍 Social Studies</b><p>History, geography, civics and society at the right class level.</p></article>
+<article><b>📚 English & GK</b><p>Language, vocabulary, comprehension and general awareness.</p></article>
+</div></section>
 <section id="quiz" class="quiz-section">
-<div class="quiz-head"><div><p class="eyebrow">105+ QUESTION BANK</p><h2>UPSC Practice Mode</h2></div><div class="timer" id="timer">20:00</div></div><div class="filters"><select id="subject"><option>All</option><option>Polity</option><option>Geography</option><option>History</option><option>Economy</option><option>Environment</option><option>Science & Tech</option><option>International Relations</option></select><select id="difficulty"><option>All</option><option>Easy</option><option>Medium</option><option>Hard</option></select><select id="count"><option value="10">10 Questions</option><option value="20">20 Questions</option><option value="30">30 Questions</option><option value="50">50 Questions</option><option value="105">Full Bank</option></select><button class="primary" id="start">Start / Restart</button></div><div class="quiz-meta"><span id="meta"></span><span id="scoreLive"></span></div>
-<div class="progress"><div id="progressBar"></div></div>
-<div id="quizBox"></div>
+<div class="quiz-head"><div><p class="eyebrow">ADAPTIVE CLASS MODE</p><h2>Your Challenge</h2></div><div class="timer" id="timer">10:00</div></div>
+<div class="setup">
+<label>Your class<select id="grade"><option value="1">Class 1</option><option value="2">Class 2</option><option value="3">Class 3</option><option value="4">Class 4</option><option value="5">Class 5</option><option value="6">Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option><option value="12">Class 12</option></select></label>
+<label>Subject<select id="subject"><option>All</option><option>Mathematics</option><option>Science</option><option>English</option><option>Social Studies</option><option>General Knowledge</option><option>Reasoning</option></select></label>
+<label>Challenge<select id="difficulty"><option>Balanced</option><option>Foundation</option><option>Stretch</option></select></label>
+<label>Questions<select id="count"><option value="10">10</option><option value="15">15</option><option value="20">20</option></select></label>
+<button class="primary" id="start">Start / Restart</button>
+</div>
+<div class="quiz-meta"><span id="meta"></span><span id="scoreLive"></span></div><div class="progress"><div id="progressBar"></div></div><div id="quizBox"></div>
 <div class="quiz-actions"><button id="prev" class="secondary">← Previous</button><button id="next" class="primary">Next →</button></div>
 </section>
-<section id="result" class="result hidden"><p class="eyebrow">RESULT & REVIEW</p><h2 id="scoreText"></h2><p id="resultMessage"></p><div id="review"></div><button class="primary" id="again">Practice Again</button></section><section id="leaderboard" class="leaderboard"><div class="section-head"><div><p class="eyebrow">LOCAL LEADERBOARD</p><h2>Best Scores</h2></div><button class="secondary" id="clearBoard">Clear</button></div><div id="board"></div><p class="muted">Scores are stored only in this browser.</p></section>
-</main>
-<footer>UPSC Knowledge Hub · Independent study and revision</footer>
+<section id="result" class="result hidden"><p class="eyebrow">YOUR LEARNING PROFILE</p><h2 id="scoreText"></h2><p id="resultMessage"></p><div id="profileCards"></div><div id="review"></div><button class="primary" id="again">Try Another Set</button></section>
+<section id="profile" class="leaderboard"><div class="section-head"><div><p class="eyebrow">PROGRESS, NOT JUDGEMENT</p><h2>How the profile works</h2></div></div><p class="muted">Your result is based on this quiz only. It describes how confidently you handled questions for the class you selected; it is not a medical or scientific IQ test and does not label anyone as “smart” or “less smart”.</p></section>
+</main><footer>IQ Buster · Class-wise practice for Classes 1–12</footer>
 <script src="script.js"></script>
 </body></html>
