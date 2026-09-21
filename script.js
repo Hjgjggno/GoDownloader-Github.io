@@ -162,7 +162,7 @@ function mathQuestion(g,d,k){
 
 function englishQuestion(g,d,k){
   const [word,syn]=EN_WORDS[k%EN_WORDS.length];
-  if(g<=2) return makeQuestion(g,"English",d,"Which word is a naming word?",["cat","run","quickly","blue"][k%4],["jump","slowly","happy"],"A naming word is a noun.");
+  if(g<=2) return makeQuestion(g,"English",d,"Which word is a naming word?",["cat","dog","school","book"][k%4],["jump","slowly","happy"],"A naming word is a noun.");
   if(g<=4) return makeQuestion(g,"English",d,"Which word is closest in meaning to '"+word+"'?",syn,["late","empty","weak"],syn+" is the closest synonym.");
   if(g<=6) return makeQuestion(g,"English",d,"Choose the correct past tense of '"+["go","write","eat","see","take"][k%5]+"'.",["went","wrote","ate","saw","took"][k%5],["goed","writing","eated"],"The listed form is the standard past tense.");
   if(g<=8) return makeQuestion(g,"English",d,"In the sentence 'The student answered carefully', what part of speech is 'carefully'?","Adverb",["Noun","Adjective","Pronoun"],"It describes how the action was performed.");
