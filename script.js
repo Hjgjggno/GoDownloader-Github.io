@@ -86,6 +86,42 @@ const Q={
 ["Reasoning","Stretch","If a data set has mean 10 and every value is increased by 5, the new mean is:",["10","12","15","50"],2,"Adding 5 to every observation adds 5 to the mean."]
 ]};
 Object.entries(Q).forEach(([g,qs])=>qs.forEach(x=>add(+g,...x)));
+
+const CLASS_DIFFICULTIES=["Foundation","Class Level","Advanced","Challenge","Qualified Test"];
+const GKJ=[
+["Which planet do we live on?","Earth"],["How many days are in a week?","7"],["Which animal is known as the king of the jungle?","Lion"],
+["What is the capital of India?","New Delhi"],["Which bird is India's national bird?","Indian peafowl"],["Which gas do humans breathe in?","Oxygen"],
+["How many months are in a year?","12"],["Which star gives Earth light?","The Sun"],["What is the currency of India?","Indian rupee"],["Which shape has three sides?","Triangle"]
+];
+const GKS=[
+["Which constitutional body conducts elections in India?","Election Commission of India"],["What is the capital of Australia?","Canberra"],
+["Which is the largest planet in the Solar System?","Jupiter"],["Which ocean is the deepest?","Pacific Ocean"],["What is the study of earthquakes called?","Seismology"],
+["Which gas is most abundant in Earth's atmosphere?","Nitrogen"],["Which Indian state has the longest coastline?","Gujarat"],["What is the SI unit of electric resistance?","Ohm"],
+["Which layer of the atmosphere contains most weather?","Troposphere"],["What is biodiversity?","The variety of life"],
+["What does GDP measure?","The value of final goods and services produced"],["Which instrument records atmospheric pressure?","Barometer"]
+];
+function generatedQuestions(){
+  const out=[];
+  for(let g=1;g<=12;g++){
+    for(let k=0;k<60;k++){
+      const d=CLASS_DIFFICULTIES[k%5], n=g+k+2;
+      out.push({grade:g,subject:"Mathematics",difficulty:d,q:"What is "+n+" + "+(k%9+2)+"?",o:[String(n+k%9+2),String(n+k%9+3),String(n+k%9+1),String(n+k%9+4)],a:0,e:"Add the two numbers to get the first option.",challenge:d==="Qualified Test"?"Qualified Test":"Practice"});
+      const en=["rapid","ancient","brave","simple","correct"][k%5];
+      const syn=["swift","old","courageous","easy","right"][k%5];
+      out.push({grade:g,subject:"English",difficulty:d,q:"Which word is closest in meaning to '"+en+"'?",o:[syn,"late","empty","weak"],a:0,e:syn+" is a suitable synonym here.",challenge:d==="Qualified Test"?"Qualified Test":"Practice"});
+      const sci=g<=5?["Which sense organ helps us see?","Eye","Ear","Nose","Skin"]:g<=8?["Which force pulls objects toward Earth?","Gravity","Light","Sound","Heat"]:["What is the SI unit of force?","Newton","Joule","Watt","Pascal"];
+      out.push({grade:g,subject:"Science",difficulty:d,q:sci[0],o:[sci[1],sci[2],sci[3],sci[4]],a:0,e:"The correct answer is "+sci[1]+".",challenge:d==="Qualified Test"?"Qualified Test":"Practice"});
+      const soc=g<=5?["Which country do we live in?","India","Japan","Brazil","Egypt"]:g<=8?["What is the capital of India?","New Delhi","Mumbai","Chennai","Kolkata"]:["Fundamental Rights are mainly in which Part of the Indian Constitution?","Part III","Part I","Part V","Part XII"];
+      out.push({grade:g,subject:"Social Studies",difficulty:d,q:soc[0],o:[soc[1],soc[2],soc[3],soc[4]],a:0,e:"The correct answer is "+soc[1]+".",challenge:d==="Qualified Test"?"Qualified Test":"Practice"});
+      out.push({grade:g,subject:"Reasoning",difficulty:d,q:"What comes next: "+n+", "+(n+2)+", "+(n+4)+", __?",o:[String(n+6),String(n+5),String(n+7),String(n+8)],a:0,e:"The pattern increases by 2.",challenge:d==="Qualified Test"?"Qualified Test":"Challenge"});
+      const arr=g<=5?GKJ:GKS, item=arr[k%arr.length], wrong=arr.filter((z,i)=>i!==k%arr.length).slice(0,3).map(z=>z[1]);
+      out.push({grade:g,subject:g<=5?"GK Junior":"GK Senior",difficulty:d,q:item[0],o:[item[1],...wrong],a:0,e:"The correct answer is "+item[1]+".",challenge:d==="Qualified Test"?"Qualified Test":"Knowledge"});
+    }
+  }
+  return out;
+}
+BANK.push(...generatedQuestions());
+
 let pool=[],current=0,answers=[],seconds=600,timerId=null;
 const $=id=>document.getElementById(id),box=$("quizBox"),bar=$("progressBar");
 function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
@@ -93,20 +129,20 @@ function startQuiz(){
  clearInterval(timerId);const g=+$("grade").value,s=$("subject").value,d=$("difficulty").value,n=+$("count").value;
  let choices=BANK.filter(x=>x.grade===g&&(s==="All"||x.subject===s));
  if(d==="Foundation") choices=choices.filter(x=>x.difficulty==="Foundation");
- if(d==="Stretch") choices=choices.filter(x=>x.difficulty==="Stretch");
+ if(d!=="Balanced") choices=choices.filter(x=>x.difficulty===d);
  pool=shuffle(choices).slice(0,n);
  if(!pool.length){alert("There are no questions for that combination yet. Try Subject: All and Challenge: Balanced.");return}
  current=0;answers=Array(pool.length).fill(null);seconds=Math.max(300,pool.length*45);$("result").classList.add("hidden");$("quiz").classList.remove("hidden");render();timerId=setInterval(tick,1000);
 }
 function render(){
  const x=pool[current];if(!x)return;
- box.innerHTML='<div class="question-number">CLASS '+x.grade+' · '+x.subject.toUpperCase()+' · '+x.difficulty.toUpperCase()+' · QUESTION '+(current+1)+' OF '+pool.length+'</div><div class="question">'+x.q+'</div>'+x.o.map((v,i)=>'<button class="option '+(answers[current]===i?"selected":"")+'" onclick="choose('+i+')">'+String.fromCharCode(65+i)+'. '+v+'</button>').join("");
+ box.innerHTML='<div class="question-number">CLASS '+x.grade+' · '+x.subject.toUpperCase()+' · '+x.difficulty.toUpperCase()+' · QUESTION '+(current+1)+' OF '+pool.length+'</div><div class="question">'+x.q+'</div>'+x.o.map((v,i)=>'<button class="option '+(answers[current]===i?"selected":"") +'" onclick="choose('+i+')">'+String.fromCharCode(65+i)+'. '+v+'</button>').join("")+'<p class="answer-note">Answer selected. Click Next to continue. Correctness is revealed only after Finish.</p>';
  bar.style.width=((current+1)/pool.length*100)+"%";$("meta").textContent="Class "+x.grade+" · "+x.subject;$("scoreLive").textContent=answers.filter((a,i)=>a!==null&&a===pool[i].a).length+" correct so far";$("prev").style.visibility=current?"visible":"hidden";$("next").textContent=current===pool.length-1?"Finish":"Next →";$("timer").textContent=String(Math.floor(seconds/60)).padStart(2,"0")+":"+String(seconds%60).padStart(2,"0");
 }
 function choose(i){answers[current]=i;render()}
 $("prev").onclick=()=>{if(current){current--;render()}}
 $("next").onclick=()=>{if(current<pool.length-1){current++;render()}else finish()}
-function tick(){seconds--;if(seconds<=0)finish();else render()}
+function tick(){seconds--;if(seconds<=0)finish();else $("timer").textContent=String(Math.floor(seconds/60)).padStart(2,"0")+":"+String(seconds%60).padStart(2,"0")}
 function finish(){
  if(!pool.length)return;clearInterval(timerId);
  const score=answers.reduce((n,a,i)=>n+(a===pool[i].a?1:0),0),pct=Math.round(score/pool.length*100);
