@@ -230,6 +230,19 @@ BANK.push(...generatedQuestions());
 let pool=[],current=0,answers=[],seconds=600,timerId=null;
 const $=id=>document.getElementById(id),box=$("quizBox"),bar=$("progressBar");
 function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function syncSubjectOptions(){
+  const g=+$("grade").value,s=$("subject");
+  const current=s.value;
+  [...s.options].forEach(o=>{
+    if(o.value==="GK Junior") o.disabled=g>5;
+    if(o.value==="GK Senior") o.disabled=g<6;
+  });
+  if(s.selectedOptions[0]?.disabled) s.value="All";
+}
+function autoRefreshQuiz(){
+  syncSubjectOptions();
+  startQuiz();
+}
 function startQuiz(){
  clearInterval(timerId);const g=+$("grade").value,s=$("subject").value,d=$("difficulty").value,n=+$("count").value;
  let choices=BANK.filter(x=>x.grade===g&&(s==="All"||x.subject===s));
@@ -258,4 +271,12 @@ function finish(){
  $("review").innerHTML=pool.map((x,i)=>'<div class="review-item"><h3 class="'+(answers[i]===x.a?"correct":"wrong")+'">'+(answers[i]===x.a?"✓ Correct":"↺ Review")+' — Q'+(i+1)+': '+x.q+'</h3><p><b>Your answer:</b> '+(answers[i]===null?"Not answered":x.o[answers[i]])+'</p><p><b>Correct answer:</b> '+x.o[x.a]+'</p><p><b>Why:</b> '+x.e+'</p></div>').join("");
  $("quiz").classList.add("hidden");$("result").classList.remove("hidden");$("result").scrollIntoView({behavior:"smooth"});
 }
-$("start").onclick=startQuiz;$("again").onclick=startQuiz;startQuiz();
+$("start").onclick=startQuiz;
+$("again").onclick=startQuiz;
+$("grade").addEventListener("change",autoRefreshQuiz);
+$("subject").addEventListener("change",autoRefreshQuiz);
+$("difficulty").addEventListener("change",autoRefreshQuiz);
+$("count").addEventListener("change",autoRefreshQuiz);
+window.addEventListener("scroll",()=>$("scrollHero").classList.toggle("show",window.scrollY>420),{passive:true});
+syncSubjectOptions();
+startQuiz();
